@@ -1,0 +1,81 @@
+---
+const navLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+  { name: 'Projects', href: '/projects' },
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' }
+];
+---
+<nav id="navbar" class="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-slate-950/60 border-b border-cyan-500/10 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center font-black tracking-wider text-white shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+        ABK
+      </div>
+      <div>
+        <span class="font-extrabold text-xl tracking-tight text-white block">ABHISHEK</span>
+        <span class="text-[10px] tracking-widest uppercase text-cyan-400 block -mt-1">Geospatial & Surveys</span>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center gap-8">
+      {navLinks.map((link) => (
+        <a href={link.href} class="nav-item text-sm uppercase tracking-widest text-slate-300 hover:text-cyan-400 font-medium transition-colors">
+          {link.name}
+        </a>
+      ))}
+      <a href="/contact" class="px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-lg shadow-cyan-500/25 transition-all">
+        Book Survey
+      </a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button id="mobile-toggle" aria-label="Toggle Menu" class="md:hidden text-slate-300 hover:text-white p-2">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-drawer" class="hidden md:hidden bg-slate-950/95 border-b border-cyan-500/20 px-6 py-6 space-y-4">
+    {navLinks.map((link) => (
+      <a href={link.href} class="block text-slate-300 hover:text-cyan-400 text-base font-medium">
+        {link.name}
+      </a>
+    ))}
+    <a href="/contact" class="block w-full text-center py-2.5 rounded-full text-xs font-semibold uppercase bg-cyan-500 text-white">
+      Book Survey
+    </a>
+  </div>
+</nav>
+
+<script>
+  import { gsap } from 'gsap';
+
+  // GSAP Navbar Entry Animation
+  gsap.from('#navbar', {
+    y: -80,
+    opacity: 0,
+    duration: 1.1,
+    ease: 'power3.out',
+  });
+
+  gsap.from('.nav-item', {
+    y: -15,
+    opacity: 0,
+    stagger: 0.1,
+    duration: 0.8,
+    delay: 0.4,
+    ease: 'power2.out',
+  });
+
+  // Mobile menu toggle
+  const toggleBtn = document.getElementById('mobile-toggle');
+  const drawer = document.getElementById('mobile-drawer');
+  toggleBtn?.addEventListener('click', () => {
+    drawer?.classList.toggle('hidden');
+  });
+</script>
